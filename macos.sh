@@ -208,6 +208,11 @@ defaults write com.apple.dashboard devmode -bool true
 # Allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true;
 
+# Set F5 hotkey to show launchpad
+defaults write -g NSUserKeyEquivalents '{
+    "Show Launchpad"="\uf708";
+}'
+
 ###############################################################################
 # Safari & WebKit                                                             #
 ###############################################################################
@@ -275,6 +280,13 @@ sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 # been indexed before.
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+
+# disable spotlight
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo mdutil -a -i off
+# to enable again
+# sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+# or sudo mdutil -a -i on
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
